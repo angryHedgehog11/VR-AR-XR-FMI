@@ -49,9 +49,11 @@
 		
 		scene.add(cube); 
 		
+		 //resizing the window depending on the change 
 		window.addEventListener('resize', onWindowResize, false); 
-		
-		 //function to add a mobile or change display politness 
+		onWindowResize();
+		  
+		//function to add a mobile or change display politness 
 		function onWindowResize(event)
 		{
 			camera.aspect = window.innerWidth/innerHeight;
