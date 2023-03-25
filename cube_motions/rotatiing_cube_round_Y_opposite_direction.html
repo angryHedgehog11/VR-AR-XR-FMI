@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<!--program for a rotating cube-->
+
+  <html> 
+    <head> 
+	  <title> Rotating cube around Y axis at opposite direction </title> 
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	  <script src="three.min.js"></script>
+	  <script src="WebGL.js"></script>
+	</head>
+	<body style="margin: 0px; overflow: hidden;">
+	  <script>
+		// check if webGL is available 
+		if (!THREE.WEBGL.isWebGLAvailable())
+			alert(THREE.WEBGL.getWebGLErrorMessage()); 
+			
+		// creating a renderer
+		var renderer = new THREE.WebGLRenderer({antialias:true}); 
+			renderer.setSize(window.innerWidth, window.innerHeight, true); 
+			
+		//adding a field for drawing
+		document.body.appendChild(renderer.domElement);
+		document.body.style.margin = 0; 
+		document.body.style.overflow = 'hidden'; 
+		
+		//creating the main scene with white background
+		var scene = new THREE.Scene(); 
+			scene.background = new THREE.Color('white'); 
+			
+		//creating a camera with the same proportions as the window 
+		
+		var aspect = window.innerWidth/innerHeight;
+		var camera = new THREE.PerspectiveCamera(60, aspect, 1, 100);
+			camera.position.set(1,1,2); 
+			camera.lookAt(new THREE.Vector3(0,0,0)); 
+			
+		//creating and adding a dot light 
+		
+		var light = new THREE.PointLight(); 
+			light.position.set(0, 20, 40); 
+			
+		scene.add(light); 
+		
+		//creating a cube and adding it to the scene 
+		
+		var geometry = new THREE.BoxGeometry(1,1,1); 
+		var material = new THREE.MeshLambertMaterial(); 
+		var cube = new THREE.Mesh(geometry, material);
+		
+		scene.add(cube); 
+		
+		var clock = new THREE.Clock(true); 
+		
+		renderer.setAnimationLoop(frame); 
+		
+		window.addEventListener('resize', onWindowResize, false); 
+		
+		function frame()
+		{
+			var t = clock.getElapsedTime(); 
+			cube.rotation.set(0,-t,0); 
+			
+			renderer.render(scene, camera); 
+		}
+		
+		function onWindowResize(event)
+		{
+			camera.aspect = window.innerWidth/innerHeight;
+			camera.updateProjectionMatrix();
+			renderer.setSize(window.innerWidth, window.innerHeight, true); 
+		}
+		
+		//generating a frame that is visible throught the camera
+				
+	  </script>
+	  <canvas data-engine="three.js r149" width="1479" height="754" style="display: block; width: 1479px; height: 754px;"></canvas>
+	</body>
+  </html>  
