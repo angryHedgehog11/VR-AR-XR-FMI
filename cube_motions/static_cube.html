@@ -15,7 +15,7 @@
 			alert(THREE.WEBGL.getWebGLErrorMessage()); 
 			
 		// creating a renderer
-		var renderer = new THREE.WebGLRenderer(); 
+		var renderer = new THREE.WebGLRenderer({antialias:true}); 
 			renderer.setSize(window.innerWidth, window.innerHeight, true); 
 			
 		//adding a field for drawing
@@ -48,6 +48,16 @@
 		var cube = new THREE.Mesh(geometry, material);
 		
 		scene.add(cube); 
+		
+		window.addEventListener('resize', onWindowResize, false); 
+		
+		 //function to add a mobile or change display politness 
+		function onWindowResize(event)
+		{
+			camera.aspect = window.innerWidth/innerHeight;
+			camera.updateProjectionMatrix();
+			renderer.setSize(window.innerWidth, window.innerHeight, true); 
+		}
 		
 		//generating a frame that is visible throught the camera
 		
