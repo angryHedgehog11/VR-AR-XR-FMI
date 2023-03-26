@@ -1,0 +1,50 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	  <title>Rotating bricks</title>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	  <script src="three.min.js"></script>
+	  <script src="stats.min.js"></script>
+	  <script src="vax.js"></script>
+	</head>
+	<body style="margin: 0px; overflow: hidden;">
+	  <script>
+		vaxInit();
+
+		var material = new THREE.MeshLambertMaterial();
+			
+		var geometry = new THREE.BoxGeometry( 15, 15, 1 );
+
+		var n = 20; 
+		var alpha = 2*Math.PI/n; 
+		
+		var planes = []; 
+		
+		for(var i = 0; i < n; i++)
+		{
+			planes[i] = new THREE.Mesh(geometry, material); 
+			scene. add(planes[i]); 
+		}
+		function animate( t )
+		{
+			for(var i = 0; i < n; i++)
+			{
+				var a = alpha*i+t/3; 
+				var x = 60*Math.sin(a); 
+				var z = 60*Math.cos(a); 
+				planes[i].position.set(x,0,z); 
+				
+				planes[i].rotation.set(t+3*a, a, 0, 'YXZ'); 
+			}
+		}
+		</script>
+		
+		<canvas data-engine="three.js r150" width="294" height="746" style="display: block; width: 294px; height: 746px;"></canvas>
+		<div style="position: fixed; top: 0px; left: 0px; cursor: pointer; opacity: 0.9; z-index: 10000;">
+		  <canvas width="80" height="48" style="width: 80px; height: 48px; display: block;"></canvas>
+		  <canvas width="80" height="48" style="width: 80px; height: 48px; display: none;"></canvas>
+		  <canvas width="80" height="48" style="width: 80px; height: 48px; display: none;"></canvas>
+		</div>
+    </body>
+</html> 
