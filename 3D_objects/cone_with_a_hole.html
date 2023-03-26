@@ -1,0 +1,55 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	  <title>Cone with a hole</title>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	  <script src="three.min.js"></script>
+	  <script src="stats.min.js"></script>
+	  <script src="vax.js"></script>
+	</head>
+	<body style="margin: 0px; overflow: hidden;">
+	  <script>
+		
+			vaxInit();
+
+			var material = new THREE.MeshLambertMaterial();
+
+			var cone = new THREE.Group();
+			scene.add( cone );
+			
+			var topRingGeometry = new THREE.RingGeometry( 10, 20, 64 );
+			var topRing = new THREE.Mesh( topRingGeometry , material );
+			topRing.position.set( 0, 0, 20 );
+					
+			var bottomRingGeometry = new THREE.RingGeometry( 10, 40, 64 );
+			var bottomRing = new THREE.Mesh(bottomRingGeometry, material );
+			bottomRing.position.set( 0, 0, -20 );
+			bottomRing.rotation.set( 0, Math.PI, 0 );
+			
+			var innerWallGeometry = new THREE.CylinderGeometry( 10, 10, 40, 64, 1, true );
+			var innerWall = new THREE.Mesh(innerWallGeometry, new THREE.MeshLambertMaterial());
+			innerWall.material.side = THREE.BackSide;
+			innerWall.rotation.set( Math.PI/2, 0, 0 );
+				
+			var outerWallGeometry = new THREE.CylinderGeometry( 20, 40, 40, 64, 1, true );
+			var outerWall = new THREE.Mesh(outerWallGeometry, material);
+			outerWall.rotation.set( Math.PI/2, 0, 0 );
+
+			cone.add( topRing, bottomRing, innerWall, outerWall );
+			
+			function animate( t )
+			{
+				cone.rotation.set( t/2, t/3, t/4 );
+			}
+		
+		</script>
+		
+		<canvas data-engine="three.js r150" width="294" height="746" style="display: block; width: 294px; height: 746px;"></canvas>
+		<div style="position: fixed; top: 0px; left: 0px; cursor: pointer; opacity: 0.9; z-index: 10000;">
+		  <canvas width="80" height="48" style="width: 80px; height: 48px; display: block;"></canvas>
+		  <canvas width="80" height="48" style="width: 80px; height: 48px; display: none;"></canvas>
+		  <canvas width="80" height="48" style="width: 80px; height: 48px; display: none;"></canvas>
+		</div>
+    </body>
+</html> 
