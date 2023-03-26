@@ -1,0 +1,46 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	  <title>Capsule</title>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	  <script src="three.min.js"></script>
+	  <script src="stats.min.js"></script>
+	  <script src="vax.js"></script>
+	</head>
+	<body style="margin: 0px; overflow: hidden;">
+	  <script>
+		vaxInit();
+
+		var material = new THREE.MeshLambertMaterial();
+		var capsule = new THREE.Group();
+		scene.add( capsule );
+			
+		var geometry = new THREE.SphereGeometry( 20, 32, 16 );
+
+		var sphereA = new THREE.Mesh( geometry, material );
+		sphereA.position.set( 0, -20, 0 );
+		capsule.add( sphereA );
+			
+		var sphereB = new THREE.Mesh( geometry, material );
+		sphereB.position.set( 0, 20, 0 );
+		capsule.add( sphereB );
+
+		var body = new THREE.Mesh(
+		new THREE.CylinderGeometry( 20, 20, 40, 32 ), material );
+		capsule.add( body );
+
+		function animate( t )
+		{
+			capsule.rotation.set( t/2, t/3, t/4 );
+		}
+		</script>
+		
+		<canvas data-engine="three.js r150" width="294" height="746" style="display: block; width: 294px; height: 746px;"></canvas>
+		<div style="position: fixed; top: 0px; left: 0px; cursor: pointer; opacity: 0.9; z-index: 10000;">
+		  <canvas width="80" height="48" style="width: 80px; height: 48px; display: block;"></canvas>
+		  <canvas width="80" height="48" style="width: 80px; height: 48px; display: none;"></canvas>
+		  <canvas width="80" height="48" style="width: 80px; height: 48px; display: none;"></canvas>
+		</div>
+    </body>
+</html> 
